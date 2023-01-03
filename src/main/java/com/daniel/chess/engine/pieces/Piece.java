@@ -1,8 +1,11 @@
 package com.daniel.chess.engine.pieces;
 
 import com.daniel.chess.engine.Alliance;
+import com.daniel.chess.engine.board.Move;
 
-public class Piece {
+import java.util.List;
+
+public abstract class Piece {
 
     protected final int piecePosition;
     protected final Alliance pieceAlliance;
