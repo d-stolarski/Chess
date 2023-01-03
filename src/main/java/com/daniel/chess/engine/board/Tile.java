@@ -1,3 +1,6 @@
+package com.daniel.chess.engine.board;
+import com.daniel.chess.engine.pieces.Piece;
+
 public abstract class Tile {
 
     private int tileCoordinate;
