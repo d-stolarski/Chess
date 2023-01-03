@@ -1,6 +1,7 @@
 package com.daniel.chess.engine.pieces;
 
 import com.daniel.chess.engine.Alliance;
+import com.daniel.chess.engine.board.Board;
 import com.daniel.chess.engine.board.Move;
 
 import java.util.List;
