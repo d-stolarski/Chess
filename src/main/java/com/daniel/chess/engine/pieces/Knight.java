@@ -25,7 +25,7 @@ public class Knight extends Piece{
 
         for(final int currentCandidate : CANDIDATE_MOVE_COORDINATES){
             candidateDestinationCoordinate = this.piecePosition + currentCandidate;
-            if(true){
+            if(isValidTileCoordinate(candidateDestinationCoordinate)){
                 final Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
                 if(!candidateDestinationTile.isTileOccupied()){
                     legalMoves.add(new Move());
@@ -39,5 +39,8 @@ public class Knight extends Piece{
             }
         }
         return ImmutableList.copyOf(legalMoves);
+    }
+
+    private boolean isValidTileCoordinate(int candidateDestinationCoordinate) {
     }
 }
