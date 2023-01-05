@@ -8,6 +8,7 @@ import com.daniel.chess.engine.board.Tile;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Knight extends Piece{
@@ -19,7 +20,7 @@ public class Knight extends Piece{
     }
 
     @Override
-    public List<Move> calculateLegalMoves(Board board) {
+    public Collection<Move> calculateLegalMoves(Board board) {
 
         final List<Move> legalMoves = new ArrayList<>();
 
@@ -32,7 +33,6 @@ public class Knight extends Piece{
                         isEighthColumnExclusion(this.piecePosition, currentCandidateOffset)) {
                     continue;
                 }
-
                 final Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
                 if (!candidateDestinationTile.isTileOccupied()) {
                     legalMoves.add(new Move());
