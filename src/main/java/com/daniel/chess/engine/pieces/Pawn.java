@@ -31,7 +31,9 @@ public class Pawn extends Piece{
 
             if(currentCandidateOffset == 8 && board.getTile(candidateDestinationCoordinate).isTileOccupied()) {
                 legalMoves.add(new Move.MajorMove(board, this, candidateDestinationCoordinate));
-            } else if(currentCandidateOffset == 16 && this.isFirstMove() && (true) || (true)) {
+            } else if(currentCandidateOffset == 16 && this.isFirstMove() &&
+                    (BoardUtils.SECOND_ROW[this.piecePosition] && this.getPieceAlliance().isBlack()) ||
+                    (BoardUtils.SEVENTH_ROW[this.piecePosition] && this.getPieceAlliance().isWhite())) {
 
 
             }
