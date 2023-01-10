@@ -40,7 +40,13 @@ public class Board {
         return builder.toString();
     }
 
-    public
+    public Collection<Piece> getBlackPieces() {
+        return this.blackPieces;
+    }
+
+    public Collection<Piece> getWhitePieces() {
+        return this.whitePieces;
+    }
 
     private Collection<Move> calculateLegalMoves(final Collection<Piece> pieces) {
 
