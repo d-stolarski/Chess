@@ -31,6 +31,31 @@ public abstract class Player {
         throw new RuntimeException("Not a valid board!");
     }
 
+    //TODO
+    public boolean isMoveLegal(final Move move) {
+        return this.legalMoves.contains(move);
+    }
+
+    public boolean isInCheck() {
+        return false;
+    }
+
+    public boolean isInCheckMate() {
+        return false;
+    }
+
+    public boolean isInStaleMate() {
+        return false;
+    }
+
+    public boolean isCastled() {
+        return false;
+    }
+
+    public MoveTransition makeMove(final Move move) {
+        return null;
+    }
+
     public abstract Collection<Piece> getActivePieces();
     public abstract Alliance getAlliance();
     public abstract Player getOpponent();
