@@ -47,7 +47,6 @@ public abstract class Player {
         throw new RuntimeException("Not a valid board!");
     }
 
-    //TODO
     public boolean isMoveLegal(final Move move) {
         return this.legalMoves.contains(move);
     }
@@ -57,6 +56,16 @@ public abstract class Player {
     }
 
     public boolean isInCheckMate() {
+        return this.isInCheck && !hasEscapeMoves();
+    }
+
+    protected boolean hasEscapeMoves() {
+        for(final Move move : this.legalMoves) {
+            final MoveTransition transition = makeMove(move);
+            if(transition.getMoveStatus().isDone()) {
+                return true;
+            }
+        }
         return false;
     }
 
