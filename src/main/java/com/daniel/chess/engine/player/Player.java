@@ -59,6 +59,10 @@ public abstract class Player {
         return this.isInCheck && !hasEscapeMoves();
     }
 
+    public boolean isInStaleMate() {
+        return !this.isInCheck && !hasEscapeMoves();
+    }
+
     protected boolean hasEscapeMoves() {
         for(final Move move : this.legalMoves) {
             final MoveTransition transition = makeMove(move);
@@ -66,10 +70,6 @@ public abstract class Player {
                 return true;
             }
         }
-        return false;
-    }
-
-    public boolean isInStaleMate() {
         return false;
     }
 
