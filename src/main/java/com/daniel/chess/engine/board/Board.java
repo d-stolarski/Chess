@@ -3,6 +3,7 @@ package com.daniel.chess.engine.board;
 import com.daniel.chess.engine.Alliance;
 import com.daniel.chess.engine.pieces.*;
 import com.daniel.chess.engine.player.BlackPlayer;
+import com.daniel.chess.engine.player.Player;
 import com.daniel.chess.engine.player.WhitePlayer;
 import com.google.common.collect.ImmutableList;
 
@@ -38,6 +39,14 @@ public class Board {
             }
         }
         return builder.toString();
+    }
+
+    public Player whitePlayer() {
+        return this.whitePlayer;
+    }
+
+    public Player blackPlayer() {
+        return this.blackPlayer;
     }
 
     public Collection<Piece> getBlackPieces() {

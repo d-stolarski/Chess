@@ -1,5 +1,6 @@
 package com.daniel.chess.engine.player;
 
+import com.daniel.chess.engine.Alliance;
 import com.daniel.chess.engine.board.Board;
 import com.daniel.chess.engine.board.Move;
 import com.daniel.chess.engine.pieces.King;
@@ -31,5 +32,8 @@ public abstract class Player {
     }
 
     public abstract Collection<Piece> getActivePieces();
+    public abstract Alliance getAlliance();
+    public abstract Player getOpponent();
+
 
 }
