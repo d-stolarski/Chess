@@ -2,6 +2,8 @@ package com.daniel.chess.engine.board;
 
 import com.daniel.chess.engine.Alliance;
 import com.daniel.chess.engine.pieces.*;
+import com.daniel.chess.engine.player.BlackPlayer;
+import com.daniel.chess.engine.player.WhitePlayer;
 import com.google.common.collect.ImmutableList;
 
 import java.util.*;
