@@ -40,6 +40,8 @@ public class Board {
         return builder.toString();
     }
 
+    public
+
     private Collection<Move> calculateLegalMoves(final Collection<Piece> pieces) {
 
         final List<Move> legalMoves = new ArrayList<>();
