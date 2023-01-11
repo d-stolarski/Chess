@@ -23,6 +23,26 @@ public abstract class Piece {
         this.isFirstMove = false;
     }
 
+    @Override
+    public boolean equals(final Object other) {
+        if(this == other) {
+            return true;
+        }
+        if(!(other instanceof Piece)) {
+            return false;
+        }
+        final Piece otherPiece = (Piece) other;
+        return piecePosition == ((Piece) other).getPiecePosition()
+                && pieceType == otherPiece.getPieceType()
+                && pieceAlliance == otherPiece.getPieceAlliance()
+                && isFirstMove == otherPiece.isFirstMove();
+     }
+
+    @Override
+    public int hashCode() {
+
+    }
+
     public int getPiecePosition() {
         return this.piecePosition;
     }
