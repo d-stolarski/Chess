@@ -10,12 +10,18 @@ public abstract class Move {
     final Piece movedPiece;
     final int destinationCoordinate;
 
+    public static final Move NULL_MOVE = new NullMove();
+
     private Move(final Board board,
-         final Piece movedPiece,
-         final int destinationCoordinate){
+                 final Piece movedPiece,
+                 final int destinationCoordinate){
         this.board = board;
         this.movedPiece = movedPiece;
         this.destinationCoordinate = destinationCoordinate;
+    }
+
+    public int getCurrentCoordinate() {
+        return this.getMovedPiece().getPiecePosition();
     }
 
     public int getDestinationCoordinate() {
@@ -136,11 +142,28 @@ public abstract class Move {
 
     public static final class NullMove extends Move {
 
-        public NullMove(final Board board,
-                                   final Piece movedPiece,
-                                   final int destinationCoordinate) {
-            super(board, movedPiece, destinationCoordinate);
+        public NullMove() {
+            super(null, null, -1);
         }
     }
 
+    public static class MoveFactory {
+
+        private MoveFactory() {
+            throw new RuntimeException("Not instantiable!");
+        }
+
+        public static Move createMove(final Board board,
+                                      final int currentCoordinate,
+                                      final int destinationCoordinate) {
+            for(final Move move : board.getAllLegalMoves()) {
+                if(move.getCurrentCoordinate() == currentCoordinate &&
+                   move.getDestinationCoordinate() == destinationCoordinate) {
+                    return move;
+                }
+            }
+            return NULL_MOVE;
+        }
+
+    }
 }
