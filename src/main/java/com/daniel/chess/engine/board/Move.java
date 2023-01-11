@@ -20,6 +20,29 @@ public abstract class Move {
         this.destinationCoordinate = destinationCoordinate;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+
+        result = prime * result + this.destinationCoordinate;
+        result = prime * result + this.movedPiece.hashCode();
+        return result;
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        if(this == other) {
+            return true;
+        }
+        if(!(other instanceof Move)) {
+            return false;
+        }
+        final Move otherMove = (Move) other;
+        return  getDestinationCoordinate() == otherMove.getDestinationCoordinate() &&
+                getMovedPiece().equals(otherMove.getMovedPiece());
+    }
+
     public int getCurrentCoordinate() {
         return this.getMovedPiece().getPiecePosition();
     }
@@ -30,6 +53,18 @@ public abstract class Move {
 
     public Piece getMovedPiece() {
         return this.movedPiece;
+    }
+
+    public boolean isAttack() {
+        return false;
+    }
+
+    public boolean isCastlingMove() {
+        return false;
+    }
+
+    public Piece getAttackedPiece() {
+        return null;
     }
 
     public Board execute() {
