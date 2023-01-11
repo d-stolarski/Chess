@@ -22,7 +22,8 @@ public enum Alliance {
         }
 
         @Override
-        public Player choosePlayer(WhitePlayer whitePlayer, BlackPlayer blackPlayer) {
+        public Player choosePlayer(final WhitePlayer whitePlayer,
+                                   final BlackPlayer blackPlayer) {
             return whitePlayer;
         }
     },
@@ -43,7 +44,8 @@ public enum Alliance {
         }
 
         @Override
-        public Player choosePlayer(WhitePlayer whitePlayer, BlackPlayer blackPlayer) {
+        public Player choosePlayer(final WhitePlayer whitePlayer,
+                                   final BlackPlayer blackPlayer) {
             return blackPlayer;
         }
     };
