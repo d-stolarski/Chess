@@ -145,6 +145,11 @@ public abstract class Move {
         public NullMove() {
             super(null, null, -1);
         }
+
+        @Override
+        public Board execute() {
+            throw new RuntimeException("Cannot execute the null move!");
+        }
     }
 
     public static class MoveFactory {
