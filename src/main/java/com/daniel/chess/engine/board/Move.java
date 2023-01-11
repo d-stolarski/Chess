@@ -22,6 +22,10 @@ public abstract class Move {
         return this.destinationCoordinate;
     }
 
+    public Piece getMovedPiece() {
+        return this.movedPiece;
+    }
+
     public abstract Board execute();
 
     public static final class MajorMove extends Move {
@@ -35,6 +39,8 @@ public abstract class Move {
         @Override
         public Board execute() {
             final Builder builder = new Builder();
+
+            //todo hascode and equals for pieces
             for(final Piece piece : this.board.currentPlayer().getActivePieces()) {
                 if(!this.movedPiece.equals(piece)) {
                     builder.setPiece(piece);
@@ -43,7 +49,7 @@ public abstract class Move {
             for(final Piece piece : this.board.currentPlayer().getOpponent().getActivePieces()) {
                 builder.setPiece(piece);
             }
-            builder.setMoveMaker(null);
+            builder.setPiece(null);
             builder.setMoveMaker(this.board.currentPlayer().getOpponent().getAlliance());
             return builder.build();
         }
