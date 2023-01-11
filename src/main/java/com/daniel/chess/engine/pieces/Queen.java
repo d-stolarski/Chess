@@ -52,7 +52,7 @@ public class Queen extends Piece {
     }
 
     @Override
-    public Piece movePiece(Move move) {
+    public Queen movePiece(Move move) {
         return new Queen(move.getMovedPiece().getPieceAlliance(),
                 move.getDestinationCoordinate());
     }
