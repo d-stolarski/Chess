@@ -1,5 +1,6 @@
 package com.daniel.chess.engine.board;
 
+import com.daniel.chess.engine.pieces.Pawn;
 import com.daniel.chess.engine.pieces.Piece;
 
 import static com.daniel.chess.engine.board.Board.*;
@@ -174,6 +175,24 @@ public abstract class Move {
                         final int destinationCoordinate) {
             super(board, movedPiece, destinationCoordinate);
         }
+
+        @Override
+        public Board execute() {
+            final Builder builder = new Builder();
+            for(final Piece piece : this.board.currentPlayer().getActivePieces()) {
+                if(!this.movedPiece.equals(piece)) {
+                    builder.setPiece(piece);
+                }
+            }
+            for(final Piece piece : this.board.currentPlayer().getOpponent().getActivePieces()) {
+                builder.setPiece(piece);
+            }
+            final Pawn movedPawn = (Pawn)this.movedPiece.movePiece(this);
+            builder.setPiece(movedPawn);
+            builder.setEnPassantPawn(movedPawn);
+            builder.setMoveMaker(this.board.currentPlayer().getOpponent().getAlliance());
+            return builder.build();
+        }
     }
 
     static abstract class CastleMove extends Move {
@@ -232,6 +251,5 @@ public abstract class Move {
             }
             return NULL_MOVE;
         }
-
     }
 }
