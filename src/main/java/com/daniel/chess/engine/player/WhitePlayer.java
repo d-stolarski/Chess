@@ -60,11 +60,7 @@ public class WhitePlayer extends Player{
                     kingCastles.add(null);
                 }
             }
-
         }
-
-
-
         return ImmutableList.copyOf(kingCastles);
     }
 }
