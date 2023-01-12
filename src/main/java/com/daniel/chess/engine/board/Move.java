@@ -225,7 +225,21 @@ public abstract class Move {
 
         @Override
         public Board execute() {
-
+            final Builder builder = new Builder();
+            for(final Piece piece : this.board.currentPlayer().getActivePieces()) {
+                if(!this.movedPiece.equals(piece) && !this.castleRook.equals(piece)) {
+                    builder.setPiece(piece);
+                }
+            }
+            for(final Piece piece : this.board.currentPlayer().getOpponent().getActivePieces()) {
+                builder.setPiece(piece);
+            }
+            builder.setPiece(this.movedPiece.movePiece(this));
+            //TODO
+            builder.setPiece(new Rook(this.castleRook.getPieceAlliance(),
+                                      this.castleRookDestination));
+            builder.setMoveMaker(this.board.currentPlayer().getOpponent().getAlliance());
+            return builder.build();
         }
     }
 
@@ -233,8 +247,16 @@ public abstract class Move {
 
         public KingSideCastleMove(final Board board,
                                   final Piece movedPiece,
-                                  final int destinationCoordinate) {
-            super(board, movedPiece, destinationCoordinate);
+                                  final int destinationCoordinate,
+                                  final Rook castleRook,
+                                  final int castleRookStart,
+                                  final int castleRookDestination) {
+            super(board, movedPiece, destinationCoordinate, castleRook, castleRookStart, castleRookDestination);
+        }
+
+        @Override
+        public String toString() {
+            return "O-O";
         }
     }
 
@@ -242,8 +264,16 @@ public abstract class Move {
 
         public QueenSideCastleMove(final Board board,
                                    final Piece movedPiece,
-                                   final int destinationCoordinate) {
-            super(board, movedPiece, destinationCoordinate);
+                                   final int destinationCoordinate,
+                                   final Rook castleRook,
+                                   final int castleRookStart,
+                                   final int castleRookDestination) {
+            super(board, movedPiece, destinationCoordinate, castleRook, castleRookStart, castleRookDestination);
+        }
+
+        @Override
+        public String toString() {
+            return "O-O-O";
         }
     }
 
