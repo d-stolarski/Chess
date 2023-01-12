@@ -2,6 +2,7 @@ package com.daniel.chess.engine.board;
 
 import com.daniel.chess.engine.pieces.Pawn;
 import com.daniel.chess.engine.pieces.Piece;
+import com.daniel.chess.engine.pieces.Rook;
 
 import static com.daniel.chess.engine.board.Board.*;
 
@@ -197,10 +198,34 @@ public abstract class Move {
 
     static abstract class CastleMove extends Move {
 
+        protected final Rook castleRook;
+        protected final int castleRookStart;
+        protected final int castleRookDestination;
+
         public CastleMove(final Board board,
                           final Piece movedPiece,
-                          final int destinationCoordinate) {
+                          final int destinationCoordinate,
+                          final Rook castleRook,
+                          final int castleRookStart,
+                          final int castleRookDestination) {
             super(board, movedPiece, destinationCoordinate);
+            this.castleRook = castleRook;
+            this.castleRookStart = castleRookStart;
+            this.castleRookDestination = castleRookDestination;
+        }
+
+        public Rook getCastleRook() {
+            return this.castleRook;
+        }
+
+        @Override
+        public boolean isCastlingMove() {
+            return true;
+        }
+
+        @Override
+        public Board execute() {
+
         }
     }
 
