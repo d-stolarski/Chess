@@ -13,6 +13,8 @@ public class Table {
 
     private final JFrame gameFrame;
     private final BoardPanel boardPanel;
+    private final Color lightTileColor = Color.decode("#FFFACD");
+    private final Color darkTileColor = Color.decode("#593E1A");
 
     private final static Dimension OUTER_FRAME_DIMENSION = new Dimension(600,600);
     private final static Dimension BOARD_PANEL_DIMENSION = new Dimension(400, 350);
@@ -72,12 +74,19 @@ public class Table {
             assignTileColor();
             validate();
         }
-    }
 
-    private void assignTileColor() {
-        if (BoardUtils.FIRST_ROW[this.tileId]
-
-
-        )
+        private void assignTileColor() {
+            if(BoardUtils.FIRST_ROW[this.tileId] ||
+                    BoardUtils.THIRD_ROW[this.tileId] ||
+                    BoardUtils.FIFTH_ROW[this.tileId] ||
+                    BoardUtils.SEVENTH_ROW[this.tileId]) {
+                setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor);
+            } else if(BoardUtils.SECOND_ROW[this.tileId] ||
+                    BoardUtils.FOURTH_ROW[this.tileId]   ||
+                    BoardUtils.SIXTH_ROW[this.tileId]    ||
+                    BoardUtils.EIGTH_ROW[this.tileId]) {
+                 setBackground(this.tileId % 2 != 0 ? lightTileColor : darkTileColor);
+            }
+        }
     }
 }
