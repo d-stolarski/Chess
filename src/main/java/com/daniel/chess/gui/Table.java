@@ -36,4 +36,12 @@ public class Table {
         fileMenu.add(openPGN);
         return fileMenu;
     }
+
+    private class BoardPanel extends JPanel {
+
+    }
+
+    private class TilePanel extends JPanel {
+
+    }
 }
