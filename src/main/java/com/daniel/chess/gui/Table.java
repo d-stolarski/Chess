@@ -14,6 +14,7 @@ public class Table {
         this.gameFrame = new JFrame("JChess");
         final JMenuBar tableMenuBar = new JMenuBar();
         populateMenuBar(tableMenuBar);
+        this.gameFrame.setJMenuBar(tableMenuBar);
         this.gameFrame.setSize(OUTER_FRAME_DIMENSION);
         this.gameFrame.setVisible(true);
     }
@@ -31,5 +32,7 @@ public class Table {
                 System.out.println("open up that pgn file");
             }
         });
+        fileMenu.add(openPGN);
+        return fileMenu;
     }
 }
