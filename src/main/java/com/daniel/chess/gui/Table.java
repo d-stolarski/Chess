@@ -75,5 +75,9 @@ public class Table {
     }
 
     private void assignTileColor() {
+        if (BoardUtils.FIRST_ROW[this.tileId]
+
+
+        )
     }
 }
