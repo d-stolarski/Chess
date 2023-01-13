@@ -1,6 +1,7 @@
-package com.daniel.chess.engine;
+package com.daniel.chess;
 
 import com.daniel.chess.engine.board.Board;
+import com.daniel.chess.gui.Table;
 
 public class JChess {
 
@@ -8,6 +9,8 @@ public class JChess {
 
         Board board = Board.createStandardBoard();
         System.out.println(board);
+
+        Table table = new Table();
 
     }
 }
