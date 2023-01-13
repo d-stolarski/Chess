@@ -54,7 +54,7 @@ public class Table {
             super(new GridLayout(8,8));
             this.boardTiles = new ArrayList<>();
             for(int i = 0; i < BoardUtils.NUM_TILES; i++) {
-                final TilePanel tilePanel = new TilePanel();
+                final TilePanel tilePanel = new TilePanel(this, i);
                 this.boardTiles.add(tilePanel);
                 add(tilePanel);
             }
@@ -72,5 +72,8 @@ public class Table {
             assignTileColor();
             validate();
         }
+    }
+
+    private void assignTileColor() {
     }
 }
