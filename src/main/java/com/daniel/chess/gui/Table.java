@@ -97,6 +97,7 @@ public class Table {
                 boardPanel.drawBoard(chessBoard);
             }
         });
+        preferencesMenu.add(flipBoardMenuItem);
         return preferencesMenu;
     }
 
