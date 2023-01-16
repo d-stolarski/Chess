@@ -3,6 +3,7 @@ package com.daniel.chess.gui;
 import com.daniel.chess.engine.board.Board;
 import com.daniel.chess.engine.board.BoardUtils;
 import com.daniel.chess.engine.board.Move;
+import com.daniel.chess.engine.board.Move.MoveFactory;
 import com.daniel.chess.engine.board.Tile;
 import com.daniel.chess.engine.pieces.Piece;
 import com.daniel.chess.engine.player.MoveTransition;
@@ -27,7 +28,7 @@ public class Table {
 
     private final JFrame gameFrame;
     private final BoardPanel boardPanel;
-    private final Board chessBoard;
+    private Board chessBoard;
 
     private Tile sourceTile;
     private Tile destinationTile;
@@ -95,6 +96,16 @@ public class Table {
             setPreferredSize(BOARD_PANEL_DIMENSION);
             validate();
         }
+
+        public void drawBoard(final Board board) {
+            removeAll();
+            for(final TilePanel tilePanel : boardTiles) {
+                board.drawTile(board);
+                add(tilePanel);
+            }
+            validate();
+            repaint();
+        }
     }
 
     private class TilePanel extends JPanel {
@@ -124,8 +135,23 @@ public class Table {
                             }
                         } else {
                             destinationTile = chessBoard.getTile(tileId);
-                            final Move move = null;
+                            final Move move = MoveFactory.createMove(chessBoard, sourceTile.getTileCoordinate(),
+                                    destinationTile.getTileCoordinate());
+                            final MoveTransition transition = chessBoard.currentPlayer().makeMove(move);
+                            if(transition.getMoveStatus().isDone()) {
+                                chessBoard = transition.getTransitionBoard();
+                                //todo
+                            }
+                            sourceTile = null;
+                            destinationTile = null;
+                            humanMovedPiece = null;
                         }
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                boardPanel.drawBoard(chessBoard);
+                            }
+                        });
                     }
                 }
 
