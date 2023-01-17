@@ -171,6 +171,10 @@ public class Table {
         }
     }
 
+    public static class MoveLog {
+
+    }
+
     private class TilePanel extends JPanel {
 
         private final int tileId;
