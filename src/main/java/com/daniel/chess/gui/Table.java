@@ -202,7 +202,6 @@ public class Table {
         public boolean removeMove(final Move move) {
             return this.moves.remove(move);
         }
-
     }
 
     private class TilePanel extends JPanel {
