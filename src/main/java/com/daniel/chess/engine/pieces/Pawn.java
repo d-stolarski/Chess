@@ -16,8 +16,15 @@ public class Pawn extends Piece{
 
     private final static int[] CANDIDATE_MOVE_COORDINATE = {7, 8, 9, 16};
 
-    public Pawn(final Alliance pieceAlliance, final int piecePosition) {
-        super(PieceType.KNIGHT, piecePosition, pieceAlliance);
+    public Pawn(final Alliance pieceAlliance,
+                final int piecePosition) {
+        super(PieceType.KNIGHT, piecePosition, pieceAlliance, true);
+    }
+
+    public Pawn(final Alliance pieceAlliance,
+                final int piecePosition,
+                final boolean isFirstMove) {
+        super(PieceType.KNIGHT, piecePosition, pieceAlliance, true);
     }
 
     @Override
