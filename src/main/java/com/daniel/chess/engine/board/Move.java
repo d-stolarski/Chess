@@ -24,6 +24,14 @@ public abstract class Move {
         this.isFirstMove = movedPiece.isFirstMove();
     }
 
+    private Move(final Board board,
+                 final int destinationCoordinate) {
+        this.board = board;
+        this.destinationCoordinate = destinationCoordinate;
+        this.movedPiece = null;
+        this.isFirstMove = false;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
