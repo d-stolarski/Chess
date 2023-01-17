@@ -3,11 +3,18 @@ package com.daniel.chess.gui;
 import com.daniel.chess.engine.board.Move;
 import com.daniel.chess.engine.pieces.Piece;
 import com.daniel.chess.gui.Table.MoveLog;
+import com.google.common.primitives.Ints;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class TakenPiecesPanel extends JPanel {
@@ -51,5 +58,29 @@ public class TakenPiecesPanel extends JPanel {
                 }
             }
         }
+
+        Collections.sort(whiteTakenPieces, new Comparator<Piece>() {
+            @Override
+            public int compare(Piece o1, Piece o2) {
+                return Ints.compare(o1.getPieceValue(), o2.getPieceValue());
+            }
+        });
+
+        Collections.sort(blackTakenPieces, new Comparator<Piece>() {
+            @Override
+            public int compare(Piece o1, Piece o2) {
+                return Ints.compare(o1.getPieceValue(), o2.getPieceValue());
+            }
+        });
+
+        for(final Piece takenPiece : whiteTakenPieces) {
+            try {
+                final BufferedImage image = ImageIO.read(new File("art/pieces/plain" +
+                        takenPiece.getPieceAlliance().toString().substring(0, 1) +
+                        "" + takenPiece.toString()));
+        } catch(final IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
