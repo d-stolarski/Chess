@@ -78,9 +78,26 @@ public class TakenPiecesPanel extends JPanel {
                 final BufferedImage image = ImageIO.read(new File("art/pieces/plain" +
                         takenPiece.getPieceAlliance().toString().substring(0, 1) +
                         "" + takenPiece.toString()));
-        } catch(final IOException e) {
-            e.printStackTrace();
+                final ImageIcon icon = new ImageIcon(image);
+                final JLabel imageLabel = new JLabel();
+                this.southPanel.add(imageLabel);
+            } catch (final IOException e) {
+                e.printStackTrace();
+            }
         }
 
+        for(final Piece takenPiece : blackTakenPieces) {
+            try {
+                final BufferedImage image = ImageIO.read(new File("art/pieces/plain" +
+                        takenPiece.getPieceAlliance().toString().substring(0, 1) +
+                        "" + takenPiece.toString()));
+                final ImageIcon icon = new ImageIcon(image);
+                final JLabel imageLabel = new JLabel();
+                this.southPanel.add(imageLabel);
+            } catch (final IOException e) {
+                e.printStackTrace();
+            }
+        }
+        validate();
     }
 }
