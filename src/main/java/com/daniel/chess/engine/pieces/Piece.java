@@ -75,7 +75,7 @@ public abstract class Piece {
 
     public enum PieceType {
 
-        PAWN("P") {
+        PAWN(100, "P") {
             @Override
             public boolean isKing() {
                 return false;
@@ -86,7 +86,7 @@ public abstract class Piece {
                 return false;
             }
         },
-        KNIGHT("N") {
+        KNIGHT(300, "N") {
             @Override
             public boolean isKing() {
                 return false;
@@ -97,7 +97,7 @@ public abstract class Piece {
                 return false;
             }
         },
-        BISHOP("B") {
+        BISHOP(300, "B") {
             @Override
             public boolean isKing() {
                 return false;
@@ -108,7 +108,7 @@ public abstract class Piece {
                 return false;
             }
         },
-        ROOK("R") {
+        ROOK(500, "R") {
             @Override
             public boolean isKing() {
                 return false;
@@ -119,7 +119,7 @@ public abstract class Piece {
                 return true;
             }
         },
-        QUEEN("Q") {
+        QUEEN(900, "Q") {
             @Override
             public boolean isKing() {
                 return false;
@@ -130,7 +130,7 @@ public abstract class Piece {
                 return false;
             }
         },
-        KING("K") {
+        KING(10000, "K") {
             @Override
             public boolean isKing() {
                 return true;
@@ -143,14 +143,21 @@ public abstract class Piece {
         };
 
         private String pieceName;
+        private int pieceValue;
 
-        PieceType(final String pieceName) {
+        PieceType(final int pieceValue,
+                  final String pieceName) {
+            this.pieceValue = pieceValue;
             this.pieceName = pieceName;
         }
 
         @Override
         public String toString() {
             return this.pieceName;
+        }
+
+        public int getPieceValue() {
+            return this.pieceValue;
         }
 
         public abstract boolean isKing();
