@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.daniel.chess.gui.Table.*;
@@ -39,6 +40,41 @@ public class GameHistoryPanel extends JPanel {
         private final List<Row> values;
         private static final String[] NAMES = {"White", "Black"};
 
+        DataModel() {
+            this.values = new ArrayList<>();
+        }
+
+        public void clear() {
+            this.values.clear();
+            setRowCount(0);
+        }
+
+        @Override
+        public int getRowCount() {
+            if(this.values == null) {
+                return 0;
+            }
+            return this.values.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return NAMES.length;
+        }
+
+        @Override
+        public Object getValueAt(final int row, final int column) {
+            final Row currentRow = this.values.get(row);
+            if(column == 0) {
+                return currentRow.getWhiteMove();
+            } else if(column == 1) {
+                return currentRow.getBlackMove();
+            }
+            return null;
+        }
+
+
+
     }
 
     private static class Row {
@@ -66,6 +102,4 @@ public class GameHistoryPanel extends JPanel {
             this.whiteMove = move;
         }
     }
-
-
 }
