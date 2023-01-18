@@ -3,7 +3,11 @@ package com.daniel.chess.gui;
 import com.daniel.chess.engine.board.Board;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+
 import java.awt.*;
+import java.util.List;
 
 import static com.daniel.chess.gui.Table.*;
 
@@ -25,8 +29,43 @@ public class GameHistoryPanel extends JPanel {
         this.setVisible(true);
     }
 
-    void redo(final Board board, final MoveLog moveLog)  {
+    void redo(final Board board,
+              final MoveLog moveLog)  {
 
     }
+
+    private static class DataModel extends DefaultTableModel {
+
+        private final List<Row> values;
+        private static final String[] NAMES = {"White", "Black"};
+
+    }
+
+    private static class Row {
+
+        private String whiteMove;
+        private String blackMove;
+
+        Row() {
+
+        }
+
+        public String getWhiteMove() {
+            return this.whiteMove;
+        }
+
+        public String getBlackMove() {
+            return this.blackMove;
+        }
+
+        public void setWhiteMove(final String move) {
+            this.whiteMove = move;
+        }
+
+        public void setBlackMove(final String move) {
+            this.whiteMove = move;
+        }
+    }
+
 
 }
