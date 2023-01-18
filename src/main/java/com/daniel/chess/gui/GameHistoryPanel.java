@@ -33,7 +33,6 @@ public class GameHistoryPanel extends JPanel {
 
     void redo(final Board board,
               final MoveLog moveHistory)  {
-
         int currentRow = 0;
         this.model.clear();
         for(final Move move : moveHistory.getMoves()) {
@@ -45,20 +44,25 @@ public class GameHistoryPanel extends JPanel {
                 currentRow++;
             }
         }
-
         if(moveHistory.getMoves().size() > 0) {
             final Move lastMove = moveHistory.getMoves().get(moveHistory.size() - 1);
             final String moveText = lastMove.toString();
-
             if(lastMove.getMovedPiece().getPieceAlliance().isWhite()) {
                 this.model.setValueAt(moveText + calculateCheckAndCheckMateHash(board), currentRow - 1, 1);
             }
         }
-
         final JScrollBar vertical = scrollPane.getVerticalScrollBar();
         vertical.setValue(vertical.getMaximum());
+        
+    }
 
-
+    private String calculateCheckAndCheckMateHash(final Board board) {
+        if(board.currentPlayer().isInCheckMate()) {
+            return "#";
+        } else if (board.currentPlayer().isInCheck()) {
+            return "+";
+        }
+        return "";
     }
 
     private static class DataModel extends DefaultTableModel {
