@@ -59,6 +59,10 @@ public class Board {
         return this.currentPlayer;
     }
 
+    public Pawn getEnPassantPawn() {
+        return this.enPassantPawn;
+    }
+
     public Collection<Piece> getBlackPieces() {
         return this.blackPieces;
     }
