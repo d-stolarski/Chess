@@ -349,7 +349,6 @@ public abstract class Move {
             final CastleMove otherCastleMove = (CastleMove) other;
             return super.equals(otherCastleMove) && this.castleRook.equals(otherCastleMove.getCastleRook());
         }
-
     }
 
     public static final class KingSideCastleMove extends CastleMove {
@@ -361,6 +360,11 @@ public abstract class Move {
                                   final int castleRookStart,
                                   final int castleRookDestination) {
             super(board, movedPiece, destinationCoordinate, castleRook, castleRookStart, castleRookDestination);
+        }
+
+        @Override
+        public boolean equals(final Object other) {
+            return this == other || other instanceof KingSideCastleMove && super.equals(other);
         }
 
         @Override
@@ -378,6 +382,11 @@ public abstract class Move {
                                    final int castleRookStart,
                                    final int castleRookDestination) {
             super(board, movedPiece, destinationCoordinate, castleRook, castleRookStart, castleRookDestination);
+        }
+
+        @Override
+        public boolean equals(final Object other) {
+            return this == other || other instanceof QueenSideCastleMove && super.equals(other);
         }
 
         @Override
