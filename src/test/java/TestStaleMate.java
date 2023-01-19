@@ -3,7 +3,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.chess.engine.classic.Alliance;
+import com.daniel.chess.engine.Alliance;
 import com.chess.engine.classic.board.Board;
 import com.chess.engine.classic.board.Board.Builder;
 import com.chess.engine.classic.board.BoardUtils;

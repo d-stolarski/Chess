@@ -147,11 +147,6 @@ public abstract class Move {
         }
 
         @Override
-        public Board execute() {
-            return null;
-        }
-
-        @Override
         public boolean isAttack() {
             return true;
         }
@@ -169,6 +164,17 @@ public abstract class Move {
                         final int destinationCoordinate) {
             super(board, movedPiece, destinationCoordinate);
         }
+
+        @Override
+        public boolean equals(final Object other) {
+            return this == other || other instanceof PawnMove && super.equals(other);
+        }
+
+        @Override
+        public String toString() {
+            return BoardUtils.getPositionAtCoordinate(this.destinationCoordinate);
+        }
+
     }
 
     public static class PawnAttackMove extends AttackMove {
@@ -178,6 +184,17 @@ public abstract class Move {
                               final int destinationCoordinate,
                               final Piece attackedPiece) {
             super(board, movedPiece, destinationCoordinate, attackedPiece);
+        }
+
+        @Override
+        public boolean equals(final Object other) {
+            return this == other || other instanceof PawnAttackMove && super.equals(other);
+        }
+
+        @Override
+        public String toString() {
+            return BoardUtils.getPositionAtCoordinate(this.movedPiece.getPiecePosition()).substring(0,1) +
+                    "x" + BoardUtils.getPositionAtCoordinate(this.destinationCoordinate);
         }
     }
 
@@ -307,12 +324,17 @@ public abstract class Move {
     public static final class NullMove extends Move {
 
         public NullMove() {
-            super(null, -1);
+            super(null, 65);
         }
 
         @Override
         public Board execute() {
             throw new RuntimeException("Cannot execute the null move!");
+        }
+
+        @Override
+        public int getCurrentCoordinate() {
+            return -1;
         }
     }
 

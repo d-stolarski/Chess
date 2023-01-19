@@ -1,13 +1,13 @@
-import com.chess.engine.classic.Alliance;
-import com.chess.engine.classic.board.Board;
-import com.chess.engine.classic.board.Board.Builder;
-import com.chess.engine.classic.board.BoardUtils;
-import com.chess.engine.classic.board.Move;
-import com.chess.engine.classic.board.MoveTransition;
-import com.chess.engine.classic.pieces.*;
-import com.chess.engine.classic.player.ai.MoveStrategy;
-import com.chess.engine.classic.player.ai.StockAlphaBeta;
-import com.chess.pgn.FenUtilities;
+import com.daniel.chess.engine.Alliance;
+import com.daniel.chess.engine.board.Board;
+import com.daniel.chess.engine.board.Board.Builder;
+import com.daniel.chess.engine.board.BoardUtils;
+import com.daniel.chess.engine.board.Move;
+import com.daniel.chess.engine.board.MoveTransition;
+import com.daniel.chess.engine.pieces.*;
+import com.daniel.chess.engine.player.ai.MoveStrategy;
+import com.daniel.chess.engine.player.ai.StockAlphaBeta;
+import com.daniel.chess.pgn.FenUtilities;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

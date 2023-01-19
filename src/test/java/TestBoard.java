@@ -1,10 +1,10 @@
-import com.chess.engine.classic.Alliance;
-import com.chess.engine.classic.board.*;
-import com.chess.engine.classic.board.Board.Builder;
-import com.chess.engine.classic.board.Move.MoveFactory;
-import com.chess.engine.classic.pieces.*;
-import com.chess.engine.classic.player.ai.BoardEvaluator;
-import com.chess.engine.classic.player.ai.StandardBoardEvaluator;
+import com.daniel.chess.engine.Alliance;
+import com.daniel.chess.engine.board.*;
+import com.daniel.chess.engine.board.Board.Builder;
+import com.daniel.chess.engine.board.Move.MoveFactory;
+import com.daniel.chess.engine.pieces.*;
+import com.daniel.chess.engine.player.ai.BoardEvaluator;
+import com.daniel.chess.engine.player.ai.StandardBoardEvaluator;
 import com.google.common.collect.Iterables;
 import org.junit.Test;
 
