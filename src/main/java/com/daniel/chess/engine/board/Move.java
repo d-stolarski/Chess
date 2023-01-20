@@ -57,6 +57,10 @@ public abstract class Move {
                 getMovedPiece().equals(otherMove.getMovedPiece());
     }
 
+    public Board getBoard() {
+        return this.board;
+    }
+
     public int getCurrentCoordinate() {
         return this.getMovedPiece().getPiecePosition();
     }
@@ -248,6 +252,20 @@ public abstract class Move {
             builder.setPiece(this.movedPiece.movePiece(this));
             builder.setMoveMaker(this.board.currentPlayer().getOpponent().getAlliance());
             return builder.build();
+        }
+    }
+
+    public static class PawnPromotion extends Move {
+
+        final Move decoratedMove;
+        final Pawn promotedPawn;
+
+        private PawnPromotion(final Move decoratedMove) {
+            super(decoratedMove.getBoard(),
+                  decoratedMove.getMovedPiece(),
+                  decoratedMove.getDestinationCoordinate());
+            this.decoratedMove = decoratedMove;
+            this.promotedPawn = (Pawn) decoratedMove.getMovedPiece();
         }
     }
 
