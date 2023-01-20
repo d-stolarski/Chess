@@ -114,4 +114,8 @@ public class Pawn extends Piece {
         public String toString () {
             return PieceType.PAWN.toString();
         }
+
+        public Piece getPromotionPiece() {
+            return new Queen(this.pieceAlliance, this.piecePosition, false);
+        }
     }
