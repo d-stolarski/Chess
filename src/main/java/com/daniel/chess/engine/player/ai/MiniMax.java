@@ -9,7 +9,7 @@ public class MiniMax implements MoveStrategy{
     private final BoardEvaluator boardEvaluator;
 
     public MiniMax() {
-        this.boardEvaluator = null;
+        this.boardEvaluator = new StandardBoardEvaluator();
     }
 
     @Override
@@ -36,18 +36,19 @@ public class MiniMax implements MoveStrategy{
                 if(board.currentPlayer().getAlliance().isWhite() && currentValue >= highestSeenValue) {
                     highestSeenValue = currentValue;
                     bestMove = move;
-                } else if (board.currentPlayer().getAlliance().isBlack()) {
+                } else if (board.currentPlayer().getAlliance().isBlack() && currentValue <= lowestSeenValue) {
                     lowestSeenValue = currentValue;
                     bestMove = move;
                 }
             }
         }
-        return null;
+        final long executionTime = System.currentTimeMillis() - startTime;
+        return bestMove;
     }
 
     public int min(final Board board,
                    final int depth) {
-        if(depth == 0) {
+        if(depth == 0 || isEndGameScenario(board)) {
             return this.boardEvaluator.evaluate(board, depth);
         }
         int lowestSeenValue = Integer.MAX_VALUE;
@@ -63,9 +64,14 @@ public class MiniMax implements MoveStrategy{
         return lowestSeenValue;
     }
 
+    private static boolean isEndGameScenario(final Board board) {
+        return board.currentPlayer().isInCheckMate() ||
+               board.currentPlayer().isInStaleMate();
+    }
+
     public int max(final Board board,
                    final int depth) {
-        if(depth == 0) {
+        if(depth == 0 || isEndGameScenario(board)) {
             return this.boardEvaluator.evaluate(board, depth);
         }
         int highestSeenValue = Integer.MIN_VALUE;
@@ -79,6 +85,5 @@ public class MiniMax implements MoveStrategy{
             }
         }
         return highestSeenValue;
-
     }
 }
