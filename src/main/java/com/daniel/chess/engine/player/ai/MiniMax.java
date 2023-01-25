@@ -12,6 +12,10 @@ public class MiniMax implements MoveStrategy{
         this.boardEvaluator = new StandardBoardEvaluator();
     }
 
+    public MiniMax(int i) {
+        this.boardEvaluator = new StandardBoardEvaluator();
+    }
+
     @Override
     public String toString() {
         return "MiniMax";
