@@ -3,25 +3,32 @@ package com.daniel.chess.engine.board;
 import com.google.common.collect.ImmutableMap;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class BoardUtils {
+public enum BoardUtils {
 
-    public static final boolean[] FIRST_COLUMN = initColumn(0);
-    public static final boolean[] SECOND_COLUMN = initColumn(1);
-    public static final boolean[] SEVENTH_COLUMN = initColumn(6);
-    public static final boolean[] EIGHTH_COLUMN = initColumn(7);
+    INSTANCE:
 
-    public static final boolean[] EIGHTH_RANK = initRow(0);
-    public static final boolean[] SEVENTH_RANK = initRow(8);
-    public static final boolean[] SIXTH_RANK = initRow(16);
-    public static final boolean[] FIFTH_RANK = initRow(24);
-    public static final boolean[] FOURTH_RANK = initRow(32);
-    public static final boolean[] THIRD_RANK = initRow(40);
-    public static final boolean[] SECOND_RANK = initRow(48);
-    public static final boolean[] FIRST_RANK = initRow(56);
+    public final List<Boolean> FIRST_COLUMN = initColumn(0);
+    public final List<Boolean> SECOND_COLUMN = initColumn(1);
+    public final List<Boolean> THIRD_COLUMN = initColumn(2);
+    public final List<Boolean> FOURTH_COLUMN = initColumn(3);
+    public final List<Boolean> FIFTH_COLUMN = initColumn(4);
+    public final List<Boolean> SIXTH_COLUMN = initColumn(5);
+    public final List<Boolean> SEVENTH_COLUMN = initColumn(6);
+    public final List<Boolean> EIGHTH_COLUMN = initColumn(7);
 
-    public static final String[] ALGEBREIC_NOTATION = initializeAlgebreicNotation();
+    public final List<Boolean> FIRST_ROW = initRow(0);
+    public final List<Boolean> SECOND_ROW = initRow(8);
+    public final List<Boolean> THIRD_ROW = initRow(16);
+    public final List<Boolean> FOURTH_ROW = initRow(24);
+    public final List<Boolean> FIFTH_ROW = initRow(32);
+    public final List<Boolean> SIXTH_ROW = initRow(40);
+    public final List<Boolean> SEVENTH_ROW = initRow(48);
+    public final List<Boolean> EIGHTH_ROW = initRow(56);
+
+    public static final String[] ALGEBRAIC_NOTATION = initializeAlgebraicNotation();
     public static final Map<String, Integer> POSITION_TO_COORDINATE = initializePositionToCoordinateMap();
 
 
@@ -32,7 +39,7 @@ public class BoardUtils {
         throw new RuntimeException("You cannot instantiate!");
     }
 
-    private static String[] initializeAlgebreicNotation() {
+    private static String[] initializeAlgebraicNotation() {
         return new String[] {
                 "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
                 "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
@@ -53,7 +60,7 @@ public class BoardUtils {
         return ImmutableMap.copyOf(positionToCoordinate);
     }
 
-    private static boolean[] initColumn(int columnNumber) {
+    private static List<Boolean> initColumn(int columnNumber) {
         final boolean[] column = new boolean[NUM_TILES];
         do {
             column[columnNumber] = true;
@@ -62,7 +69,7 @@ public class BoardUtils {
         return column;
     }
 
-    private static boolean[] initRow(int rowNumber) {
+    private static List<Boolean> initRow(int rowNumber) {
         final boolean[] row = new boolean[NUM_TILES];
         do {
             row[rowNumber] = true;
