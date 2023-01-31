@@ -5,13 +5,9 @@ import com.daniel.chess.engine.board.Board;
 import com.daniel.chess.engine.board.Move;
 import com.daniel.chess.engine.pieces.King;
 import com.daniel.chess.engine.pieces.Piece;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.daniel.chess.engine.pieces.Piece.PieceType.KING;
@@ -87,26 +83,29 @@ public abstract class Player {
                 .collect(collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
     }
 
-    public boolean isMoveLegal(final Move move) {
-        return this.legalMoves.contains(move);
+    public MoveTransition makeMove(final Move move) {
+        if(!this.legalMoves.contains(move)) {
+            return new MoveTransition(this.board, this.board, move, MoveStatus.ILLEGAL_MOVE);
+        }
+        final Board transitionedBoard = move.execute();
+        return transitionedBoard.currentPlayer().getOpponent().isInCheck() ?
+                new MoveTransition(this.board, this.board, move, MoveStatus.LEAVES_PLAYER_IN_CHECK) :
+                new MoveTransition(this.board, this.board, move, MoveStatus.DONE);
     }
 
-    public MoveTransition makeMove(final Move move) {
-        if(!isMoveLegal(move)) {
-            return new MoveTransition(this.board, move, MoveStatus.ILLEGAL_MOVE);
-        }
-        final Board transitionBoard = move.execute();
-        final Collection<Move> kingAttacks = Player.calculateAttacksOnTile(transitionBoard.currentPlayer().
-                getOpponent().getPlayerKing().getPiecePosition(), transitionBoard.currentPlayer().getLegalMoves());
-        if(!kingAttacks.isEmpty()) {
-            return new MoveTransition(this.board, move, MoveStatus.LEAVES_PLAYER_IN_CHECK);
-        }
-        return new MoveTransition(transitionBoard, move, MoveStatus.DONE);
+    public MoveTransition unMakeMove(final Move move) {
+        return new MoveTransition(this.board, move.undo(), move, MoveStatus.DONE);
     }
+
 
     public abstract Collection<Piece> getActivePieces();
     public abstract Alliance getAlliance();
     public abstract Player getOpponent();
     protected abstract Collection<Move> calculateKingCastles(Collection<Move> playerLegals,
                                                              Collection<Move> opponentsLegals);
+    protected boolean hasCastleOpportunities() {
+        return !this.isInCheck && !this.playerKing.isCastled() &&
+                (this.playerKing.isKingSideCastleCapable() ||
+                 this.playerKing.isQueenSideCastleCapable());
+    }
 }
