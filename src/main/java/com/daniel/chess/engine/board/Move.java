@@ -474,8 +474,14 @@ public abstract class Move {
 
     public static class MoveFactory {
 
+        private static final Move NULL_MOVE = new NullMove();
+
         private MoveFactory() {
             throw new RuntimeException("Not instantiable!");
+        }
+
+        public static Move getNullMove() {
+            return NULL_MOVE;
         }
 
         public static Move createMove(final Board board,

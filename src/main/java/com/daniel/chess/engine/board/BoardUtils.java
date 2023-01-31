@@ -3,13 +3,12 @@ package com.daniel.chess.engine.board;
 import com.daniel.chess.engine.pieces.King;
 import com.daniel.chess.engine.pieces.Piece;
 import com.daniel.chess.engine.player.MoveTransition;
-import com.google.common.collect.ImmutableMap;
 
 import java.util.*;
 
 public enum BoardUtils {
 
-    INSTANCE:
+    INSTANCE;
 
     public final List<Boolean> FIRST_COLUMN = initColumn(0);
     public final List<Boolean> SECOND_COLUMN = initColumn(1);
@@ -29,7 +28,7 @@ public enum BoardUtils {
     public final List<Boolean> SEVENTH_ROW = initRow(48);
     public final List<Boolean> EIGHTH_ROW = initRow(56);
 
-    public final List<String> ALGEBRAIC_NOTATION = initializeAlgebraicNotation();
+    public static final List<String> ALGEBRAIC_NOTATION = initializeAlgebraicNotation();
     public final Map<String, Integer> POSITION_TO_COORDINATE = initializePositionToCoordinateMap();
 
     public static final int START_TILE_INDEX = 0;
@@ -88,7 +87,7 @@ public enum BoardUtils {
         return POSITION_TO_COORDINATE.get(position);
     }
 
-    public String getPositionAtCoordinate(final int coordinate) {
+    public static String getPositionAtCoordinate(final int coordinate) {
         return ALGEBRAIC_NOTATION.get(coordinate);
     }
 

@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Board {
+public final class Board {
 
     private final Map<Integer, Piece> boardConfig;
     private final Collection<Piece> whitePieces;
@@ -68,7 +68,7 @@ public class Board {
 
     public Collection<Piece> getAllPieces() {
         return Stream.concat(this.whitePieces.stream(),
-                             this.blackPieces.stream().collect(Collectors.toList());
+                             this.blackPieces.stream()).collect(Collectors.toList());
     }
 
     public Collection<Move> getAllLegalMoves() {
@@ -87,6 +87,10 @@ public class Board {
 
     public Player currentPlayer() {
         return this.currentPlayer;
+    }
+
+    public Piece getPiece(final int coordinate) {
+        return this.boardConfig.get(coordinate);
     }
 
     public Pawn getEnPassantPawn() {
@@ -108,7 +112,7 @@ public class Board {
         builder.setPiece(new Knight(Alliance.BLACK, 1));
         builder.setPiece(new Bishop(Alliance.BLACK, 2));
         builder.setPiece(new Queen(Alliance.BLACK, 3));
-        builder.setPiece(new King(Alliance.BLACK, 4));
+        builder.setPiece(new King(Alliance.BLACK, 4, true, true));
         builder.setPiece(new Bishop(Alliance.BLACK, 5));
         builder.setPiece(new Knight(Alliance.BLACK, 6));
         builder.setPiece(new Rook(Alliance.BLACK, 7));
@@ -133,7 +137,7 @@ public class Board {
         builder.setPiece(new Knight(Alliance.WHITE, 57));
         builder.setPiece(new Bishop(Alliance.WHITE, 58));
         builder.setPiece(new Queen(Alliance.WHITE, 59));
-        builder.setPiece(new King(Alliance.WHITE, 60));
+        builder.setPiece(new King(Alliance.WHITE, 60, true, true));
         builder.setPiece(new Bishop(Alliance.WHITE, 61));
         builder.setPiece(new Knight(Alliance.WHITE, 62));
         builder.setPiece(new Rook(Alliance.WHITE, 63));
