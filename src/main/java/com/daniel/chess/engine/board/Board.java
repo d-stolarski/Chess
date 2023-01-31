@@ -81,7 +81,7 @@ public final class Board {
         return this.whitePlayer;
     }
 
-    public Player blackPlayer() {
+    public BlackPlayer blackPlayer() {
         return this.blackPlayer;
     }
 

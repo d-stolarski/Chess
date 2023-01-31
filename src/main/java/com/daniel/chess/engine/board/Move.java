@@ -34,12 +34,11 @@ public abstract class Move {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
         int result = 1;
-
-        result = prime * result + this.destinationCoordinate;
-        result = prime * result + this.movedPiece.hashCode();
-        result = prime * result + this.movedPiece.getPiecePosition();
+        result = 31 * result + this.destinationCoordinate;
+        result = 31 * result + this.movedPiece.hashCode();
+        result = 31 * result + this.movedPiece.getPiecePosition();
+        result = result + (isFirstMove ? 1 : 0);
         return result;
     }
 
@@ -52,7 +51,7 @@ public abstract class Move {
             return false;
         }
         final Move otherMove = (Move) other;
-        return  getCurrentCoordinate() == ((Move) other).getCurrentCoordinate() &&
+        return  getCurrentCoordinate() == otherMove.getCurrentCoordinate() &&
                 getDestinationCoordinate() == otherMove.getDestinationCoordinate() &&
                 getMovedPiece().equals(otherMove.getMovedPiece());
     }
@@ -87,17 +86,19 @@ public abstract class Move {
 
     public Board execute() {
         final Builder builder = new Builder();
-        //todo hascode and equals for pieces
-        for(final Piece piece : this.board.currentPlayer().getActivePieces()) {
-            if(!this.movedPiece.equals(piece)) {
-                builder.setPiece(piece);
-            }
-        }
-        for(final Piece piece : this.board.currentPlayer().getOpponent().getActivePieces()) {
-            builder.setPiece(piece);
-        }
+        this.board.currentPlayer().getActivePieces().stream()
+                        .filter(piece -> !this.movedPiece.equals(piece)).forEach(builder::setPiece);
+        this.board.currentPlayer().getOpponent().getActivePieces().forEach(builder::setPiece);
         builder.setPiece(this.movedPiece.movePiece(this));
         builder.setMoveMaker(this.board.currentPlayer().getOpponent().getAlliance());
+        builder.setMoveTransition(this);
+        return builder.build();
+    }
+
+    public Board undo() {
+        final Board.Builder builder = new Builder();
+        this.board.getAllPieces().forEach(builder::setPiece);
+        builder.setMoveMaker(this.board.currentPlayer().getAlliance());
         return builder.build();
     }
 
