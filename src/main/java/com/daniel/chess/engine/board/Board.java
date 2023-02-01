@@ -77,7 +77,7 @@ public final class Board {
                                      .collect(Collectors.toList());
     }
 
-    public Player whitePlayer() {
+    public WhitePlayer whitePlayer() {
         return this.whitePlayer;
     }
 
