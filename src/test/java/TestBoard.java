@@ -22,8 +22,8 @@ public class TestBoard {
         assertFalse(board.currentPlayer().isInCheck());
         assertFalse(board.currentPlayer().isInCheckMate());
         assertFalse(board.currentPlayer().isCastled());
-//        assertTrue(board.currentPlayer().isKingSideCastleCapable());
-//        assertTrue(board.currentPlayer().isQueenSideCastleCapable());
+        assertTrue(board.currentPlayer().isKingSideCastleCapable());
+        assertTrue(board.currentPlayer().isQueenSideCastleCapable());
         assertEquals(board.currentPlayer(), board.whitePlayer());
         assertEquals(board.currentPlayer().getOpponent(), board.blackPlayer());
         assertFalse(board.currentPlayer().getOpponent().isInCheck());
