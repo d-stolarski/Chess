@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 
 import static com.daniel.chess.gui.Table.*;
 
-public class GameSetup extends JDialog {
+class GameSetup extends JDialog {
 
     private PlayerType whitePlayerType;
     private PlayerType blackPlayerType;

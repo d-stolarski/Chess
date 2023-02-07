@@ -151,11 +151,11 @@ public class MiniMax implements MoveStrategy{
             this.count.incrementAndGet();
         }
 
-        @Override
-        public String toString() {
-            return BoardUtils.getPositionAtCoordinate(this.move.getCurrentCoordinate()) +
-                    BoardUtils.getPositionAtCoordinate(this.move.getDestinationCoordinate()) + " : " +this.count;
-        }
+//        @Override
+//        public String toString() {
+//            return BoardUtils.getPositionAtCoordinate(this.move.getCurrentCoordinate()) +
+//                    BoardUtils.getPositionAtCoordinate(this.move.getDestinationCoordinate()) + " : " +this.count;
+//        }
     }
 
 }
