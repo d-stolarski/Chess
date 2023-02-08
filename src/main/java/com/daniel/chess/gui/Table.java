@@ -10,6 +10,7 @@ import com.daniel.chess.engine.player.MoveTransition;
 import com.daniel.chess.engine.player.Player;
 import com.daniel.chess.engine.player.ai.StandardBoardEvaluator;
 import com.daniel.chess.pgn.FenUtilities;
+import com.daniel.chess.pgn.MySqlGamePersistence;
 import com.google.common.collect.Lists;
 
 import javax.imageio.ImageIO;
@@ -64,7 +65,7 @@ public class Table extends Observable {
         this.boardDirection = BoardDirection.NORMAL;
         this.highlightLegalMoves = false;
         this.useBook = false;
-        this.pieceIconPath = "art/holywarriors/";
+        this.pieceIconPath = "art/pieces/plain/";
         this.gameHistoryPanel = new GameHistoryPanel();
         this.debugPanel = new DebugPanel();
         this.takenPiecesPanel = new TakenPiecesPanel();
@@ -158,9 +159,9 @@ public class Table extends Observable {
         openPGN.addActionListener(e -> {
             JFileChooser chooser = new JFileChooser();
             int option = chooser.showOpenDialog(Table.get().getGameFrame());
-//            if (option == JFileChooser.APPROVE_OPTION) {
-//                loadPGNFile(chooser.getSelectedFile());
-//            }
+            if (option == JFileChooser.APPROVE_OPTION) {
+                loadPGNFile(chooser.getSelectedFile());
+            }
         });
         filesMenu.add(openPGN);
 
@@ -169,7 +170,7 @@ public class Table extends Observable {
             String fenString = JOptionPane.showInputDialog("Input FEN");
             if (fenString != null) {
                 undoAllMoves();
-//                chessBoard = FenUtilities.createGameFromFEN(fenString);
+                chessBoard = FenUtilities.createGameFromFEN(fenString);
                 Table.get().getBoardPanel().drawBoard(chessBoard);
             }
         });
@@ -190,9 +191,9 @@ public class Table extends Observable {
                 }
             });
             final int option = chooser.showSaveDialog(Table.get().getGameFrame());
-//            if (option == JFileChooser.APPROVE_OPTION) {
-//                savePGNFile(chooser.getSelectedFile());
-//            }
+            if (option == JFileChooser.APPROVE_OPTION) {
+                savePGNFile(chooser.getSelectedFile());
+            }
         });
         filesMenu.add(saveToPGN);
 
@@ -325,7 +326,7 @@ public class Table extends Observable {
         });
 
         abstractMenMenuItem.addActionListener(e -> {
-            pieceIconPath = "art/simple/";
+            pieceIconPath = "art/pieces/plain/";
             Table.get().getBoardPanel().drawBoard(chessBoard);
         });
 
@@ -402,21 +403,21 @@ public class Table extends Observable {
         Table.get().getDebugPanel().redo();
     }
 
-//    private static void loadPGNFile(final File pgnFile) {
-//        try {
-//            persistPGNFile(pgnFile);
-//        } catch (final IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private static void loadPGNFile(final File pgnFile) {
+        try {
+            persistPGNFile(pgnFile);
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-//    private static void savePGNFile(final File pgnFile) {
-//        try {
-//            writeGameToPGNFile(pgnFile, Table.get().getMoveLog());
-//        } catch (final IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private static void savePGNFile(final File pgnFile) {
+        try {
+            writeGameToPGNFile(pgnFile, Table.get().getMoveLog());
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void undoLastMove() {
         final Move lastMove = Table.get().getMoveLog().removeMove(Table.get().getMoveLog().size() - 1);
@@ -450,8 +451,8 @@ public class Table extends Observable {
                     !Table.get().getGameBoard().currentPlayer().isInCheckMate() &&
                     !Table.get().getGameBoard().currentPlayer().isInStaleMate()) {
                 System.out.println(Table.get().getGameBoard().currentPlayer() + " is set to AI, thinking....");
-//                final AIThinkTank thinkTank = new AIThinkTank();
-//                thinkTank.execute();
+                final AIThinkTank thinkTank = new AIThinkTank();
+                thinkTank.execute();
             }
 
             if (Table.get().getGameBoard().currentPlayer().isInCheckMate()) {
@@ -475,46 +476,46 @@ public class Table extends Observable {
         COMPUTER
     }
 
-//    private static class AIThinkTank extends SwingWorker<Move, String> {
+    private static class AIThinkTank extends SwingWorker<Move, String> {
 
-//        private AIThinkTank() {
-//        }
+        private AIThinkTank() {
+        }
 
-//        @Override
-//        protected Move doInBackground() {
-//            final Move bestMove;
-//            final Move bookMove = Table.get().getUseBook()
-//                    ? MySqlGamePersistence.get().getNextBestMove(Table.get().getGameBoard(),
-//                    Table.get().getGameBoard().currentPlayer(),
-//                    Table.get().getMoveLog().getMoves().toString().replaceAll("\\[", "").replaceAll("]", ""))
-//                    : MoveFactory.getNullMove();
-//            if (Table.get().getUseBook() && bookMove != MoveFactory.getNullMove()) {
-//                bestMove = bookMove;
-//            } else {
-//                final StockAlphaBeta strategy = new StockAlphaBeta(Table.get().getGameSetup().getSearchDepth());
-//                strategy.addObserver(Table.get().getDebugPanel());
-//                bestMove = strategy.execute(Table.get().getGameBoard());
-//            }
-//            return bestMove;
-//        }
+        @Override
+        protected Move doInBackground() {
+            final Move bestMove;
+            final Move bookMove = Table.get().getUseBook()
+                    ? MySqlGamePersistence.get().getNextBestMove(Table.get().getGameBoard(),
+                    Table.get().getGameBoard().currentPlayer(),
+                    Table.get().getMoveLog().getMoves().toString().replaceAll("\\[", "").replaceAll("]", ""))
+                    : MoveFactory.getNullMove();
+            if (Table.get().getUseBook() && bookMove != MoveFactory.getNullMove()) {
+                bestMove = bookMove;
+            } else {
+                final StockAlphaBeta strategy = new StockAlphaBeta(Table.get().getGameSetup().getSearchDepth());
+                strategy.addObserver(Table.get().getDebugPanel());
+                bestMove = strategy.execute(Table.get().getGameBoard());
+            }
+            return bestMove;
+        }
 
-//        @Override
-//        public void done() {
-//            try {
-//                final Move bestMove = get();
-//                Table.get().updateComputerMove(bestMove);
-//                Table.get().updateGameBoard(Table.get().getGameBoard().currentPlayer().makeMove(bestMove).getToBoard());
-//                Table.get().getMoveLog().addMove(bestMove);
-//                Table.get().getGameHistoryPanel().redo(Table.get().getGameBoard(), Table.get().getMoveLog());
-//                Table.get().getTakenPiecesPanel().redo(Table.get().getMoveLog());
-//                Table.get().getBoardPanel().drawBoard(Table.get().getGameBoard());
-//                Table.get().getDebugPanel().redo();
-//                Table.get().moveMadeUpdate(PlayerType.COMPUTER);
-//            } catch (final Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
+        @Override
+        public void done() {
+            try {
+                final Move bestMove = get();
+                Table.get().updateComputerMove(bestMove);
+                Table.get().updateGameBoard(Table.get().getGameBoard().currentPlayer().makeMove(bestMove).getToBoard());
+                Table.get().getMoveLog().addMove(bestMove);
+                Table.get().getGameHistoryPanel().redo(Table.get().getGameBoard(), Table.get().getMoveLog());
+                Table.get().getTakenPiecesPanel().redo(Table.get().getMoveLog());
+                Table.get().getBoardPanel().drawBoard(Table.get().getGameBoard());
+                Table.get().getDebugPanel().redo();
+                Table.get().moveMadeUpdate(PlayerType.COMPUTER);
+            } catch (final Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private class BoardPanel extends JPanel {
 
